@@ -7,7 +7,7 @@ import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.IGenerator
 import org.eclipse.xtext.generator.IFileSystemAccess
 
-import static extension org.eclipse.xtext.xtend2.lib.ResourceExtensions.*
+import static extension org.eclipse.xtext.xbase.lib.IterableExtensions.*
 import net.blimster.gwt.threejs.wdl.threeJsWrapperDescriptionLanguage.ObjectWrapper
 import net.blimster.gwt.threejs.wdl.threeJsWrapperDescriptionLanguage.Method
 import net.blimster.gwt.threejs.wdl.threeJsWrapperDescriptionLanguage.Parameter
@@ -21,7 +21,7 @@ class ThreeJsWrapperDescriptionLanguageGenerator implements IGenerator {
 	
 	override void doGenerate(Resource resource, IFileSystemAccess fsa) 
 	{
-		for(objectWrapper:resource.allContentsIterable.filter(typeof(ObjectWrapper))) 
+		for(objectWrapper:resource.allContents.toIterable.filter(typeof(ObjectWrapper))) 
 		{
 			fsa.generateFile(objectWrapper.pck.toString.replace(".", "/") + "/" + objectWrapper.name + ".java", objectWrapper.toClass)
     	}
@@ -32,17 +32,17 @@ class ThreeJsWrapperDescriptionLanguageGenerator implements IGenerator {
 		/*
 		 *
 		 * This file is part of three4g.
-         *
+		 *
 		 * three4g is free software: you can redistribute it and/or modify
 		 * it under the terms of the GNU Lesse General Public License as 
 		 * published by the Free Software Foundation, either version 3 of 
 		 * the License, or (at your option) any later version.
-         *
+		 *
 		 * three4g is distributed in the hope that it will be useful,
 		 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 		 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 		 * GNU Lesser General Public License for more details.
-         *
+		 *
 		 * You should have received a copy of the GNU Lesser General Public 
 		 * License along with three4g. If not, see <http://www.gnu.org/licenses/>.
 		 *
@@ -59,7 +59,7 @@ class ThreeJsWrapperDescriptionLanguageGenerator implements IGenerator {
 		/**
 		 * This file is generated, do not edit.
 		 */
-		public «IF objectWrapper.abstract»abstract «ELSE»final «ENDIF»class «objectWrapper.name» extends «IF objectWrapper.supertype != null»«objectWrapper.supertype.name»«ELSE»JavaScriptObject«ENDIF»
+		public «IF objectWrapper.isAbstract()»abstract «ELSE»final «ENDIF»class «objectWrapper.name» extends «IF objectWrapper.supertype != null»«objectWrapper.supertype.name»«ELSE»JavaScriptObject«ENDIF»
 		{
 			
 			protected «objectWrapper.name»()
