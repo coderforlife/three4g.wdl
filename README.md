@@ -10,7 +10,9 @@
 
 ### Install Xtext
 
-Install Xtext into your Eclipse IDE via the [Xtext update site](http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/).
+Install Xtext into your Eclipse IDE via the [Xtext update site](http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/) or the Eclipse Marketplace.
+
+Eclipse 3.8 (Indigo) and Xtext 2.3.1 is needed.
 
 ### Get the projects
 
@@ -23,4 +25,4 @@ Use a GIT team provider plug-in (e.g. EGit) to import the projects **net.blimste
 * Select **net.blimster.gwt.threejs.wdl** and **net.blimster.gwt.threejs.wdl.ui** on the next side of the dialog. Enter a destination directory.
 * Click **Finish**.
 
-2 Jars are created in the destination directory. Copy them into your plug-in folder of your Eclipse installation. Restart Eclipse.
+2 Jars are created in the destination directory. Copy them into your plug-in folder of your Eclipse installation. If your are using Eclipse 4.2, copy them into your drop-ins folder. Restart Eclipse.
