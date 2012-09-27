@@ -51,67 +51,67 @@ class ThreeJsWrapperDescriptionLanguageGenerator implements IGenerator {
 		 * mail: oliver [dot] damm [at] gmx [dot] de
 		 * web: http://www.blimster.net 
 		 */
-		package ÇobjectWrapper.pckÈ;
+		package «objectWrapper.pck»;
 
-		ÇIF objectWrapper.supertype == nullÈimport com.google.gwt.core.client.JavaScriptObject;ÇENDIFÈ
-		ÇobjectWrapper.toImportsÈ
+		«IF objectWrapper.supertype == null»import com.google.gwt.core.client.JavaScriptObject;«ENDIF»
+		«objectWrapper.toImports»
 		
 		/**
 		 * This file is generated, do not edit.
 		 */
-		public ÇIF objectWrapper.isAbstract()Èabstract ÇELSEÈfinal ÇENDIFÈclass ÇobjectWrapper.nameÈ extends ÇIF objectWrapper.supertype != nullÈÇobjectWrapper.supertype.nameÈÇELSEÈJavaScriptObjectÇENDIFÈ
+		public «IF objectWrapper.isAbstract()»abstract «ELSE»final «ENDIF»class «objectWrapper.name» extends «IF objectWrapper.supertype != null»«objectWrapper.supertype.name»«ELSE»JavaScriptObject«ENDIF»
 		{
 			
-			protected ÇobjectWrapper.nameÈ()
+			protected «objectWrapper.name»()
 			{
 				super();
 			}
 			
-			ÇIF objectWrapper.constructorSection != nullÈÇIF objectWrapper.constructorSection.builderConstructor != nullÈpublic static ÇobjectWrapper.nameÈBuilder with()
+			«IF objectWrapper.constructorSection != null»«IF objectWrapper.constructorSection.builderConstructor != null»public static «objectWrapper.name»Builder with()
 			{
 				
-				return ÇobjectWrapper.nameÈBuilder.create();
+				return «objectWrapper.name»Builder.create();
 				
-			}ÇENDIFÈ
+			}«ENDIF»
 			
-			ÇIF objectWrapper.constructorSection.defaultConstructor != nullÈpublic static native ÇobjectWrapper.nameÈ create()
+			«IF objectWrapper.constructorSection.defaultConstructor != null»public static native «objectWrapper.name» create()
 			/*-{
 				
-				return new $wnd.THREE.ÇobjectWrapper.nameÈ();
+				return new $wnd.THREE.«objectWrapper.name»();
 				
-			}-*/;ÇENDIFÈ
+			}-*/;«ENDIF»
 			
 			
 			
-			ÇFOR constructor:objectWrapper.constructorSection.constructorsÈpublic static native ÇobjectWrapper.nameÈ createÇIF constructor.name != nullÈÇconstructor.name.toFirstUpperÈÇENDIFÈ(ÇFOR parameter:constructor.parameters SEPARATOR ', 'ÈÇIF constructor.json == trueÈÇparameter.toJsonParamÈÇELSEÈÇparameter.toParamÈÇENDIFÈÇENDFORÈ)
+			«FOR constructor:objectWrapper.constructorSection.constructors»public static native «objectWrapper.name» create«IF constructor.name != null»«constructor.name.toFirstUpper»«ENDIF»(«FOR parameter:constructor.parameters SEPARATOR ', '»«IF constructor.json == true»«parameter.toJsonParam»«ELSE»«parameter.toParam»«ENDIF»«ENDFOR»)
 			/*-{
 				
-				return new $wnd.THREE.ÇobjectWrapper.nameÈ(ÇIF constructor.json == trueÈ{ ÇENDIFÈÇFOR parameter:constructor.parameters SEPARATOR ', 'ÈÇIF constructor.json == trueÈÇparameter.toJsonArgÈÇELSEÈÇparameter.toArgÈÇENDIFÈÇENDFORÈÇIF constructor.json == trueÈ }ÇENDIFÈ);
+				return new $wnd.THREE.«objectWrapper.name»(«IF constructor.json == true»{ «ENDIF»«FOR parameter:constructor.parameters SEPARATOR ', '»«IF constructor.json == true»«parameter.toJsonArg»«ELSE»«parameter.toArg»«ENDIF»«ENDFOR»«IF constructor.json == true» }«ENDIF»);
 				
 			}-*/;
 			
-			ÇENDFORÈÇENDIFÈ
+			«ENDFOR»«ENDIF»
 			
-			ÇIF objectWrapper.propertySection != nullÈÇFOR property:objectWrapper.propertySection.propertiesÈÇproperty.toSetterGetterÈÇENDFORÈÇENDIFÈ
+			«IF objectWrapper.propertySection != null»«FOR property:objectWrapper.propertySection.properties»«property.toSetterGetter»«ENDFOR»«ENDIF»
 			
-			ÇIF objectWrapper.methodSection != nullÈÇFOR method:objectWrapper.methodSection.methodsÈÇmethod.toMethodÈÇENDFORÈÇENDIFÈ
+			«IF objectWrapper.methodSection != null»«FOR method:objectWrapper.methodSection.methods»«method.toMethod»«ENDFOR»«ENDIF»
 			
 		}
 	'''
 	
 	def toSetterGetter(Property property)
 	'''
-	ÇIF property.readOnly == falseÈpublic final native void setÇproperty.name.toFirstUpperÈ(Çproperty.type.toTypeÈ Çproperty.nameÈ)
+	«IF property.readOnly == false»public final native void set«property.name.toFirstUpper»(«property.type.toType» «property.name»)
 	/*-{
 		
-		this.Çproperty.nameÈ = Çproperty.nameÈ;
+		this.«property.name» = «property.name»;
 		
-	}-*/;ÇENDIFÈ
+	}-*/;«ENDIF»
 
-	public final native Çproperty.type.toTypeÈ getÇproperty.name.toFirstUpperÈ()
+	public final native «property.type.toType» get«property.name.toFirstUpper»()
 	/*-{
 		
-		return this.Çproperty.nameÈ;
+		return this.«property.name»;
 		
 	}-*/;
 	
@@ -119,26 +119,26 @@ class ThreeJsWrapperDescriptionLanguageGenerator implements IGenerator {
 	
 	def toMethod(Method method)
 	'''
-	public final native ÇIF method.returnType != nullÈÇmethod.returnType.toTypeÈÇELSEÈvoidÇENDIFÈ Çmethod.nameÈ(ÇFOR parameter:method.parameters SEPARATOR ', 'ÈÇparameter.toParamÈÇENDFORÈ)
+	public final native «IF method.returnType != null»«method.returnType.toType»«ELSE»void«ENDIF» «method.name»(«FOR parameter:method.parameters SEPARATOR ', '»«parameter.toParam»«ENDFOR»)
 	/*-{
 		
-		ÇIF method.returnType != nullÈreturn ÇENDIFÈthis.Çmethod.nameÈ(ÇFOR parameter:method.parameters SEPARATOR ', 'ÈÇparameter.toArgÈÇENDFORÈ);
+		«IF method.returnType != null»return «ENDIF»this.«method.name»(«FOR parameter:method.parameters SEPARATOR ', '»«parameter.toArg»«ENDFOR»);
 		
 	}-*/;
 	
 	'''
 	
 	def toParam(Parameter parameter)
-	'''Çparameter.type.toTypeÈ Çparameter.nameÈ'''
+	'''«parameter.type.toType» «parameter.name»'''
 
 	def toJsonParam(Parameter parameter)
-	'''Çparameter.type.toTypeÈ _Çparameter.nameÈ'''
+	'''«parameter.type.toType» _«parameter.name»'''
 
 	def toArg(Parameter parameter)
-	'''Çparameter.nameÈ'''
+	'''«parameter.name»'''
 
 	def toJsonArg(Parameter parameter)
-	'''Çparameter.nameÈ : _Çparameter.nameÈ'''
+	'''«parameter.name» : _«parameter.name»'''
 	
 	def toType(Type type)
 	{
@@ -149,7 +149,7 @@ class ThreeJsWrapperDescriptionLanguageGenerator implements IGenerator {
 			{
 				dimensions = type.arrayType.dimensions;
 			}
-			'''Çtype.datatype.asJavaType(type.arrayType != null, dimensions)È'''
+			'''«type.datatype.asJavaType(type.arrayType != null, dimensions)»'''
 		}
 		else
 		{
@@ -173,7 +173,7 @@ class ThreeJsWrapperDescriptionLanguageGenerator implements IGenerator {
 				
 			}
 			
-			'''ÇprefixÈÇtype.wrapper.nameÈÇIF type.arrayType != nullÈÇpostfixÈÇENDIFÈ'''
+			'''«prefix»«type.wrapper.name»«IF type.arrayType != null»«postfix»«ENDIF»'''
 		}
 	}
 	
@@ -254,7 +254,7 @@ class ThreeJsWrapperDescriptionLanguageGenerator implements IGenerator {
 			}
 		}
 		
-		'''ÇFOR imp:importsÈÇimpÈÇENDFORÈ'''
+		'''«FOR imp:imports»«imp»«ENDFOR»'''
 	}
 	
 	def toImport(Type type, HashSet<String> imports)
